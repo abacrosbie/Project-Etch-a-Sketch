@@ -58,6 +58,7 @@ function buttonClick(){
         }
 }
 
+//randomises rgb and opacity
 function randRGB(square){
     const min = 0;
     const max = 255;
