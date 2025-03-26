@@ -4,7 +4,7 @@
 }
 
 .container>div {
-    border: 1px solid lightgray;
+    border: 1px solid #f4f4f4;
     height: 20px;
     width: 20px;
 }
