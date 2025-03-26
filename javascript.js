@@ -14,6 +14,7 @@ function createGrid(gridSize){
         div.classList.add("gridSquare")
         div.style.width = squareSize;
         div.style.height = squareSize;
+        div.setAttribute("opacity", "0");
         createDiv.appendChild(div);
     }
 }
@@ -22,6 +23,7 @@ function createGrid(gridSize){
 let gridSize = 16;
 createGrid(gridSize);
 addHover();
+
 
 //adds listener events for squares
 function addHover(){
@@ -32,12 +34,16 @@ function addHover(){
 }
 //colours squares when moused over
 function runMouseOver(e){
-    e.target.style.backgroundColor = "rgb(40,40,40)"
+    let square = e.target;
+    let currentOpacity = parseFloat(square.getAttribute("opacity")) || 0;
+    let newOpacity = Math.min(currentOpacity + 0.1, 1);
+    square.setAttribute("opacity",newOpacity);
+    square.style.backgroundColor = "rgba(40,40,40,"+newOpacity+")"
 }
 
 //colours squares when moused leaves box
 function runMouseOut(e){
-    e.target.style.backgroundColor = randRGB();
+    e.target.style.backgroundColor = randRGB(e.target);
 }
 
 //button clicked to create new grid
@@ -52,11 +58,12 @@ function buttonClick(){
         }
 }
 
-function randRGB(){
+function randRGB(square){
     const min = 0;
     const max = 255;
     let randR = Math.floor(Math.random() * max - min +1) + min;
     let randG = Math.floor(Math.random() * max - min +1) + min;
     let randB = Math.floor(Math.random() * max - min +1) + min;
-    return "rgb("+randR+","+randG+","+randB+")"
+    let currentOpacity = parseFloat(square.getAttribute("opacity")) || 0;
+    return "rgba("+randR+","+randG+","+randB+","+currentOpacity+")"
 }
